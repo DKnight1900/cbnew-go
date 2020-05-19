@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 )
@@ -19,6 +20,9 @@ var (
 
 func main() {
 	fmt.Printf("运行中...每天%v时%v分推送\r\n", hour, minute)
+	//----debug----
+	doJob()
+	//----debug----
 	startScheduler(hour, minute, time.Hour*24)
 }
 
@@ -36,9 +40,10 @@ func init() {
 func pushInfo(title string, text string) {
 	fmt.Println(title)
 	fmt.Println(text)
+	//fmt.Println(url.QueryEscape(text))
 	// 使用Server酱推送
 	if sckey != "" {
-		resp, _ := http.Get("https://sc.ftqq.com/" + sckey + ".send?text=" + title + "&desp=" + text)
+		resp, _ := http.Get("https://sc.ftqq.com/" + sckey + ".send?text=" + url.QueryEscape(title) + "&desp=" + url.QueryEscape(text))
 		body, _ := ioutil.ReadAll(resp.Body)
 		fmt.Println("Server酱推送结果" + string(body))
 	}
@@ -53,17 +58,27 @@ func pushInfo(title string, text string) {
 
 func doJob() {
 	applyList, listList := getTodayCbInfo()
-	for _, apply := range applyList {
-		pushInfo("今日可打新债", apply)
-	}
-	for _, list := range listList {
-		pushInfo("今日上市债券", list)
-	}
 	if len(applyList) == 0 {
 		pushInfo("今日无可打新债", "")
+	} else {
+		var text string
+		for _, apply := range applyList {
+			apply = "- " + apply //markdown
+			text += apply + "\r\n"
+		}
+		pushInfo("今日可打新债", text)
 	}
+
 	if len(listList) == 0 {
 		pushInfo("今日无上市债券", "")
+	} else {
+		var text string
+		for _, list := range listList {
+			list = "- " + list //markdown
+			text += list + "\r\n"
+		}
+		pushInfo("今日上市债券", text)
+
 	}
 }
 
@@ -124,7 +139,7 @@ func getTodayCbInfo() (applyList []string, listList []string) {
 }
 
 func conv(cell Cell) string {
-	return "名称:" + cell.Name + ",申购日期:" + cell.ApplyDate + ",上市日期:" + cell.ApplyDate
+	return "名称:" + cell.Name + ",申购日期:" + cell.ApplyDate + ",上市日期:" + cell.ListDate
 }
 
 type Info struct {
