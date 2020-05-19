@@ -21,7 +21,7 @@ var (
 func main() {
 	fmt.Printf("运行中...每天%v时%v分推送\r\n", hour, minute)
 	//----debug----
-	doJob()
+	//doJob()
 	//----debug----
 	startScheduler(hour, minute, time.Hour*24)
 }
