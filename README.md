@@ -22,6 +22,10 @@ cbnew.exe -sckey=XXXX -h=8 -m=50
 # 数据来源
 - [集思录](https://www.jisilu.cn/data/cbnew/#pre)
 - [东方财富](http://data.eastmoney.com/kzz/default.html)
+- [免费节假日API](http://tool.bitefu.net/jiari/)
+
+# TODO
+[] 加入工作日的判断
 
 # 参考
 [V2EX：cbnew-python](https://github.com/crazygit/cbnew)
