@@ -25,7 +25,8 @@ cbnew.exe -sckey=XXXX -h=8 -m=50
 - [免费节假日API](http://tool.bitefu.net/jiari/)
 
 # TODO
-- [ ] 加入工作日的判断
+- [x] 优化推送消息的格式
+- [x] 加入工作日的判断
 
 # 参考
 [V2EX：cbnew-python](https://github.com/crazygit/cbnew)
