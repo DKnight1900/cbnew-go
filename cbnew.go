@@ -36,7 +36,39 @@ func init() {
 		panic("请至少设置sckey或barkkey其中一种")
 	}
 }
+func isWorkDay(date string) (isworkday bool) {
+	isworkday = true //默认是工作日
+	resp, err:= http.Get("http://tool.bitefu.net/jiari/?" + "d=" + date + "&back=json")
+	if err != nil {
+		fmt.Println("节假日api请求出错：")
+	}
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("节假日api返回结果出错：")
+	}
+	//var info Info
+	//json.Unmarshal(body, &info)
+	/*
+	工作日对应结果为 0, 休息日对应结果为 1, 节假日对应的结果为 2
+	*/
+	var mapResult map[string]interface{}
+	if err := json.Unmarshal([]byte(body), &mapResult); err != nil {
+		fmt.Println("节假日api返回结果解析出错：" + string(body))
+		return isworkday
+	}
+	if _, err := mapResult[date]; !err {
+		fmt.Println("节假日api返回结果解析出错：" + string(body))
+		return isworkday
+	}
 
+	if mapResult[date] == 1 || mapResult[date] == 2{
+		isworkday = false
+		fmt.Println("节假日api返回结果成功：" + string(body))
+		fmt.Println("isworkday：false")
+	}
+	return isworkday
+
+}
 func pushInfo(title string, text string) {
 	fmt.Println(title)
 	fmt.Println(text)
@@ -57,6 +89,8 @@ func pushInfo(title string, text string) {
 }
 
 func doJob() {
+	timeStr:=time.Now().Format("20060102")
+	isworkday := isWorkDay(timeStr)
 	applyList, listList := getTodayCbInfo()
 	if len(applyList) == 0 {
 		pushInfo("今日无可打新债", "")
@@ -66,7 +100,10 @@ func doJob() {
 			apply = "- " + apply //markdown
 			text += apply + "\r\n"
 		}
-		pushInfo("今日可打新债", text)
+		if isworkday{
+			pushInfo("今日可打新债", text)
+		}
+
 	}
 
 	if len(listList) == 0 {
@@ -77,7 +114,9 @@ func doJob() {
 			list = "- " + list //markdown
 			text += list + "\r\n"
 		}
-		pushInfo("今日上市债券", text)
+		if isworkday{
+			pushInfo("今日上市债券", text)
+		}
 
 	}
 }
