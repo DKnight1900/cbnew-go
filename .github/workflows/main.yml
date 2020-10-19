@@ -34,5 +34,7 @@ jobs:
             dep ensure
         fi
     - name: Build and run
-      run: go run -v cbnew_action.go
+      env: 
+        SCKEY: ${{ secrets.sckey }}
+      run: go run -v cbnew_action.go "$SCKEY"
 
