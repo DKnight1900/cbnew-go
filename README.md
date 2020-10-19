@@ -10,7 +10,11 @@
 ![bark](https://raw.githubusercontent.com/Cyronlee/cbnew-go/master/imgs/bark.png)
 
 # 使用
-~~在[Release页面](https://github.com/Cyronlee/cbnew-go/releases)下载对应平台的可执行文件~~
+1.github action部署
+- fork本项目后，在setting里配置推送的秘钥，即可。
+- 可以通过修改.github/workflows下面的yaml文件来修改定时推送时间，注意，时间为UTC时间。
+
+2.下载源码自己编译、部署
 ```bash
 # sckey 和 barkkey 至少设置其中一个
 cbnew.exe -sckey=XXXX -barkkey=XXXX
@@ -27,6 +31,7 @@ cbnew.exe -sckey=XXXX -h=8 -m=50
 # TODO
 - [x] ~~优化推送消息的格式~~
 - [x] ~~加入工作日的判断~~
+- [x] ~~增加github action部署~~
 
 # 参考
 [V2EX：cbnew-python](https://github.com/crazygit/cbnew)
