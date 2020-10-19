@@ -36,5 +36,5 @@ jobs:
     - name: Build and run
       env: 
         SCKEY: ${{ secrets.sckey }}
-      run: go run -v cbnew_action.go "$SCKEY"
+      run: go run -v cbnew_action.go -sckey="$SCKEY"
 
