@@ -10,7 +10,7 @@
 ![bark](https://raw.githubusercontent.com/Cyronlee/cbnew-go/master/imgs/bark.png)
 
 # 使用
-~~在[Release页面](https://github.com/Cyronlee/cbnew-go/releases)下载对应平台的可执行文件  ~~
+~~在[Release页面](https://github.com/Cyronlee/cbnew-go/releases)下载对应平台的可执行文件~~
 ```bash
 # sckey 和 barkkey 至少设置其中一个
 cbnew.exe -sckey=XXXX -barkkey=XXXX
@@ -25,8 +25,8 @@ cbnew.exe -sckey=XXXX -h=8 -m=50
 - [免费节假日API](http://tool.bitefu.net/jiari/)
 
 # TODO
-- [x] ~~优化推送消息的格式
-- [x] ~~加入工作日的判断
+- [x] ~~优化推送消息的格式~~
+- [x] ~~加入工作日的判断~~
 
 # 参考
 [V2EX：cbnew-python](https://github.com/crazygit/cbnew)
