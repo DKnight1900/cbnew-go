@@ -92,7 +92,8 @@ func doJob() {
 	applyList, listList := getTodayCbInfo()
 	
 	if !isworkday {
-		fmt.Println("isworkday?--" + isworkday)
+		fmt.Println("isworkday?")
+		fmt.Sprintf("%t", isworkday)
 		return
 	}
 	
