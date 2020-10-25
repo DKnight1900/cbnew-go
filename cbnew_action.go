@@ -90,10 +90,10 @@ func doJob() {
 	timeStr:=time.Now().Format("20060102")
 	isworkday := isWorkDay(timeStr)
 	applyList, listList := getTodayCbInfo()
+	fmt.Println("=====isworkday?=====")
+	fmt.Sprintf("%t", isworkday)
 	
 	if !isworkday {
-		fmt.Println("isworkday?")
-		fmt.Sprintf("%t", isworkday)
 		return
 	}
 	
