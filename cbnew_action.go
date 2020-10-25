@@ -90,6 +90,12 @@ func doJob() {
 	timeStr:=time.Now().Format("20060102")
 	isworkday := isWorkDay(timeStr)
 	applyList, listList := getTodayCbInfo()
+	
+	if !isworkday {
+		fmt.Println("isworkday?--" + isworkday)
+		return
+	}
+	
 	if len(applyList) == 0 {
 		pushInfo("今日无可打新债", "")
 	} else {
@@ -98,10 +104,7 @@ func doJob() {
 			apply = "- " + apply //markdown
 			text += apply + "\r\n"
 		}
-		if isworkday{
-			pushInfo("今日可打新债", text)
-		}
-
+		pushInfo("今日可打新债", text)
 	}
 
 	if len(listList) == 0 {
@@ -112,9 +115,7 @@ func doJob() {
 			list = "- " + list //markdown
 			text += list + "\r\n"
 		}
-		if isworkday{
-			pushInfo("今日上市债券", text)
-		}
+		pushInfo("今日上市债券", text)
 
 	}
 }
